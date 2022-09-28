@@ -13,12 +13,12 @@ int main(void)
     // Infinite loop
     while (1)
     {
-        digitalWrite(LED_GREEN,led_value);
-        _delay_ms(LONG_DELAY);
+        digitalWrite(LED_GREEN,led_value); 
+        _delay_ms(LONG_DELAY); //LONG_DELAY 750ms 
         digitalWrite(LED_GREEN,HIGH);
         _delay_ms(500);
         digitalWrite(LED_GREEN,led_value);
-        _delay_ms(SHORT_DELAY);  
+        _delay_ms(SHORT_DELAY);  //SHORT_DELAY 250ms
         digitalWrite(LED_GREEN,HIGH);     
         _delay_ms(1000); 
     }
