@@ -11,9 +11,10 @@
 
 
 /* Defines -----------------------------------------------------------*/
-#define LED_GREEN PB5   // PB5 is AVR pin where green on-board LED 
+#define LED_GREEN PB5    // PB5 is AVR pin where green on-board LED 
                         // is connected
 #define SHORT_DELAY 250 // Delay in milliseconds
+#define LONG_DELAY 750 // Delay in mill..
 #ifndef F_CPU
 # define F_CPU 16000000 // CPU frequency in Hz required for delay funcs
 #endif
@@ -37,6 +38,7 @@
  * Purpose:  Toggle one LED and use delay library.
  * Returns:  none
  **********************************************************************/
+/*
 int main(void)
 {
     uint8_t led_value = LOW;  // Local variable to keep LED status
@@ -58,6 +60,27 @@ int main(void)
             led_value = HIGH;
         else
             led_value = LOW;
+    }
+
+    // Will never reach this
+    return 0;
+}*/
+
+int main(void)
+{    
+    uint8_t led_value = LOW;
+    pinMode(LED_GREEN, OUTPUT);
+    // Infinite loop
+    while (1)
+    {
+        digitalWrite(LED_GREEN,led_value);
+        _delay_ms(LONG_DELAY);
+        digitalWrite(LED_GREEN,HIGH);
+        _delay_ms(500);
+        digitalWrite(LED_GREEN,led_value);
+        _delay_ms(SHORT_DELAY);  
+        digitalWrite(LED_GREEN,HIGH);     
+        _delay_ms(1000); 
     }
 
     // Will never reach this
