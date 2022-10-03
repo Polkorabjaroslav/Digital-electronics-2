@@ -7,8 +7,8 @@
    | **Data type** | **Number of bits** | **Range** | **Description** |
    | :-: | :-: | :-: | :-- |
    | `uint8_t`  | 8 | 0, 1, ..., 255 | Unsigned 8-bit integer |
-   | `int8_t`   | 8 | -128, ... 127 | signed 8-bit integer |
-   | `uint16_t` | 16 | 0,...65535 | signed 16-bit uninteger |
-   | `int16_t`  | 16 | -2147483648,...,2147483648 | signed 16-bit integer |
+   | `int8_t`   | 8 | -128, ..., 127 | signed 8-bit integer |
+   | `uint16_t` | 16 | 0, ...,65535 | signed 16-bit uninteger |
+   | `int16_t`  | 16 | -2147483648, ...,2147483648 | signed 16-bit integer |
    | `float`    | 32 | -3.4e+38, ..., 3.4e+38 | Single-precision floating-point |
    | `void`     | 0 | --- | function no return value |
