@@ -1,1 +1,0 @@
-ahoj ja jsme jarek
