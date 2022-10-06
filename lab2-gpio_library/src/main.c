@@ -14,6 +14,9 @@
 #define LED_GREEN PB5   // PB5 is AVR pin where green on-board LED
                         // is connected
 #define LED_RED PB0  
+#define LED_YELLOW PB1
+#define LED_RED_PB PB2
+#define LED_GREEN_PB PB3
 #define BUTTON PD0   // External active-low LED
 #define SHORT_DELAY 250 // Delay in milliseconds
 #ifndef F_CPU
@@ -51,8 +54,11 @@ int main(void)
     //pinMode(LED_RED, OUTPUT);
     //DDRB = DDRB | (1<<LED_GREEN);
     //DDRB = DDRB | (1<<LED_RED);
+    GPIO_mode_output(&DDRB, LED_GREEN_PB);
+    GPIO_mode_output(&DDRB, LED_RED_PB); 
     GPIO_mode_output(&DDRB, LED_GREEN);
     GPIO_mode_output(&DDRB, LED_RED);
+    GPIO_mode_output(&DDRB, LED_YELLOW);
     GPIO_mode_input_pullup(&DDRD, BUTTON);
     // Infinite loop
     while (1)
@@ -64,23 +70,45 @@ int main(void)
 
         // Pause several milliseconds
         _delay_ms(SHORT_DELAY);
-        GPIO_read(&PIND, BUTTON);
+        
         // Change LED value
-        if (BUTTON == 1 )
+        GPIO_write_high(&PORTB,LED_RED);
+        _delay_ms(2000);
+        GPIO_write_high(&PORTB,LED_YELLOW);
+        _delay_ms(500);
+        GPIO_write_low(&PORTB,LED_RED);
+        GPIO_write_low(&PORTB,LED_YELLOW);
+        _delay_ms(50);
+        GPIO_write_high(&PORTB,LED_GREEN);
+        _delay_ms(3000);
+        GPIO_write_low(&PORTB,LED_GREEN);
+        _delay_ms(500);
+        GPIO_write_high(&PORTB,LED_YELLOW);
+        _delay_ms(500);
+        GPIO_write_low(&PORTB,LED_YELLOW);
+        _delay_ms(500);
+        if (GPIO_read(&PIND, BUTTON) == 1)
         {
             //led_value = 1;
             //PORTB = PORTB | (1<<LED_GREEN);
-            //PORTB = PORTB | (1<<LED_RED);
-            GPIO_write_high(&PORTB,LED_GREEN);
             GPIO_write_high(&PORTB,LED_RED);
+            _delay_ms(200);
+            //PORTB = PORTB | (1<<LED_RED);
+            GPIO_write_high(&PORTB,LED_GREEN_PB);
+            GPIO_write_low(&PORTB,LED_RED_PB);
+            _delay_ms(2000);
+            GPIO_write_low(&PORTB,LED_GREEN_PB);
+            GPIO_write_high(&PORTB,LED_RED_PB);
         }
         else
         {
+            GPIO_write_low(&PORTB,LED_GREEN_PB);
             //led_value = 0;
             //PORTB = PORTB & ~(1<<LED_GREEN);
             //PORTB = PORTB & ~(1<<LED_RED);
-            GPIO_write_low(&PORTB,LED_GREEN);
-            GPIO_write_low(&PORTB,LED_RED);
+            GPIO_write_high(&PORTB,LED_RED_PB);
+            // GPIO_write_low(&PORTB,LED_GREEN);
+            // GPIO_write_low(&PORTB,LED_RED);
         }
     }
 

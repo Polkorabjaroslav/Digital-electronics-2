@@ -8,9 +8,9 @@
    | **DDRB** | **PORTB** | **Direction** | **Internal pull-up resistor** | **Description** |
    | :-: | :-: | :-: | :-: | :-- |
    | 0 | 0 | input | no | Tri-state, high-impedance |
-   | 0 | 1 | input | yes | |
-   | 1 | 0 | output | | |
-   | 1 | 1 | output | | |
+   | 0 | 1 | input | yes | activation of pull up resistor |
+   | 1 | 0 | output | no | low level |
+   | 1 | 1 | output | yes | high level, with pull up resistor |
 
 ### GPIO library
 
