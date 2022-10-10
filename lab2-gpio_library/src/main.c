@@ -70,7 +70,6 @@ int main(void)
 
         // Pause several milliseconds
         _delay_ms(SHORT_DELAY);
-        
         // Change LED value
         GPIO_write_high(&PORTB,LED_RED);
         _delay_ms(2000);
