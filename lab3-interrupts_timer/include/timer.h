@@ -95,11 +95,11 @@
 #define TIM2_overflow_512us() TCCR0B &= ~(1<<CS22); TCCR0B |= (1<<CS21) | (1<<CS20);
 /** @brief Set overflow 1s, prescaler 100 --> 64 */
 #define TIM2_overflow_1ms()    TCCR0B &= ~((1<<CS21) | (1<<CS20)); TCCR0B |= (1<<CS22);
-/** @brief Set overflow 4s, prescaler // 101 --> 128 */
+/** @brief Set overflow 2ms, prescaler // 101 --> 128 */
 #define TIM2_overflow_2ms()    TCCR0B &= ~(1<<CS21); TCCR0B |= (1<<CS22) | (1<<CS20);
-/** @brief Set overflow 4s, prescaler // 110 --> 256 */
+/** @brief Set overflow 4ms, prescaler // 110 --> 256 */
 #define TIM2_overflow_4ms()    TCCR0B &= ~(1<<CS20); TCCR0B |= (1<<CS22) | (1<<CS21);
-/** @brief Set overflow 4s, prescaler // 111 --> 128 */
+/** @brief Set overflow 16ms, prescaler // 111 --> 128 */
 #define TIM2_overflow_16ms()    TCCR0B |= (1<<CS22) | (1<<CS20) | (1<<CS21);
 
 /** @brief Enable overflow interrupt, 1 --> enable */
