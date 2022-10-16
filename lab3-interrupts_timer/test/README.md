@@ -18,7 +18,7 @@
    /**
     * @name  Definitions for 8-bit Timer/Counter2
     * @note  t_OVF = 1/F_CPU * prescaler * 2^n where n = 8, F_CPU = 16 MHz
-
+   */
    #define TIM2_stop()           TCCR2B &= ~((1<<CS22) | (1<<CS21) | (1<<CS20));
    /** @brief Set overflow 16u, prescaler 001 --> 1 */
    #define TIM2_overflow_16u()   TCCR2B &= ~((1<<CS22) | (1<<CS21)); TCCR0B |= (1<<CS20);
