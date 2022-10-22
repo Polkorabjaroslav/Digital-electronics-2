@@ -64,7 +64,7 @@ int main(void)
     TIM2_overflow_interrupt_enable();
 
     // Enables interrupts by setting the global interrupt mask
-    //sei();
+    sei();
 
     // Infinite loop
     while (1)
@@ -95,14 +95,14 @@ ISR(TIMER2_OVF_vect)
     no_of_overflows++;
     if (no_of_overflows >= 6)
     {
-        // Do this every 6 x 16 ms = 100 ms
-        no_of_overflows = 0;
+      // Do this every 6 x 16 ms = 100 ms
+      no_of_overflows = 0;
+      // Count tenth of seconds 0, 1, ..., 9, 0, 1, ...
+      tenths++;
 
-        // Count tenth of seconds 0, 1, ..., 9, 0, 1, ...
-        tenths++;
-        if(tenths > 9)
-        {
-          tenths = 0;
+      if(tenths > 9)
+      {
+        tenths = 0;
 
           secs++;
           if(secs>59)
@@ -115,7 +115,7 @@ ISR(TIMER2_OVF_vect)
               min = 0;
             }
             itoa(min, string, 10);
-            lcd_gotoxy(2,0);
+            lcd_gotoxy(1,0);
             if(min<10)
             {
               lcd_putc('0');
@@ -130,12 +130,12 @@ ISR(TIMER2_OVF_vect)
             lcd_putc('0');
           }
           lcd_puts(string);
-        }
+      } 
 
-        itoa(tenths, string, 10);  // Convert decimal value to string
+      itoa(tenths, string, 10);  // Convert decimal value to string
         // Display "00:00.tenths"
-        lcd_gotoxy(7, 0);
-        lcd_puts(string);
+      lcd_gotoxy(7, 0);
+      lcd_puts(string);
     }
     // Else do nothing and exit the ISR
 }
