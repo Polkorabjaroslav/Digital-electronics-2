@@ -116,37 +116,43 @@ ISR(ADC_vect)
   if(value > 830)
   {
     lcd_gotoxy(8, 1);
-    lcd_puts("    ");
+    lcd_puts("      ");
     lcd_gotoxy(8, 1);
     lcd_puts("none");
   }
   else if (value >520)
   {
     lcd_gotoxy(8, 1);
-    lcd_puts("    ");
+    lcd_puts("      ");
     lcd_gotoxy(8, 1);
-    lcd_puts("up");
+    lcd_puts("select");
   }
   else if (value >330)
   {
     lcd_gotoxy(8, 1);
-    lcd_puts("    ");
+    lcd_puts("      ");
     lcd_gotoxy(8, 1);
-    lcd_puts("DOWN");
+    lcd_puts("left");
   }
     else if (value > 150)
   {
     lcd_gotoxy(8, 1);
-    lcd_puts("    ");
+    lcd_puts("      ");
     lcd_gotoxy(8, 1);
-    lcd_puts("DOWN");
+    lcd_puts("down");
   }
-     else if (value >150)
+    else if (value >50)
   {
     lcd_gotoxy(8, 1);
-    lcd_puts("    ");
+    lcd_puts("      ");
     lcd_gotoxy(8, 1);
-    lcd_puts("DOWN");
+    lcd_puts("up");
   }
-
+    else if (value < 50)
+  {
+    lcd_gotoxy(8, 1);
+    lcd_puts("      ");
+    lcd_gotoxy(8, 1);
+    lcd_puts("right");
+  }
 }
