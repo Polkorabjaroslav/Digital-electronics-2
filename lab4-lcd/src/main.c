@@ -48,23 +48,23 @@ int main(void)
 
     // Put string(s) on LCD screen
     lcd_gotoxy(1, 0);
-    lcd_puts("00:00.0");
+    lcd_puts("00:00");
 
-    lcd_gotoxy(11, 0);
+    /* lcd_gotoxy(11, 0);
     lcd_putc('a');
     
     lcd_gotoxy(1, 1);
     lcd_putc('b');
     
     lcd_gotoxy(11, 1);
-    lcd_putc('c');
+    lcd_putc('c');  */
     // Configuration of 8-bit Timer/Counter2 for Stopwatch update
     // Set the overflow prescaler to 16 ms and enable interrupt
-    TIM2_overflow_16ms();
-    TIM2_overflow_interrupt_enable();
+    //TIM2_overflow_16ms();
+    //TIM2_overflow_interrupt_enable();
 
     // Enables interrupts by setting the global interrupt mask
-    sei();
+    //sei();
 
     // Infinite loop
     while (1)
@@ -84,7 +84,7 @@ int main(void)
  * Purpose:  Update the stopwatch on LCD screen every sixth overflow,
  *           ie approximately every 100 ms (6 x 16 ms = 100 ms).
  **********************************************************************/
-ISR(TIMER2_OVF_vect)
+/* ISR(TIMER2_OVF_vect)
 {
     static uint8_t no_of_overflows = 0;
     static uint8_t tenths = 0;  // Tenths of a second
@@ -138,4 +138,4 @@ ISR(TIMER2_OVF_vect)
       lcd_puts(string);
     }
     // Else do nothing and exit the ISR
-}
+} */

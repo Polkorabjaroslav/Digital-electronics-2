@@ -87,18 +87,5 @@ ISR(TIMER1_OVF_vect)
       itoa(value,string,2);
       uart_puts(string);
       uart_puts("\r\n");
-
-      uint8_t one;
-      for(uint8_t i=0; i<string ; i++)
-      { 
-        if(string[i] == 1)
-        {
-          one++;
-        }
-      }
-      if( one%2 == 1 )
-      {
-        uart_putc('1');
-      }
     }
 }
