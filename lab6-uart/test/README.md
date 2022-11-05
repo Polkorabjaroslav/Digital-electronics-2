@@ -28,7 +28,7 @@
 
    ![your figure](https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Obrazky/digicigi_diagram.png)
    
-Preview of code written in Clion:
+Preview of code written in **Clion**:
 (instead of int8_t we use int)
  ```c
 #include <stdio.h>
