@@ -54,7 +54,7 @@ int get_parity(int type, int data)
             counter++;
         }
     }
-    if (type == 1 && counter%2 != 0 || type == 0 & counter%2 == 0)
+    if (type == 1 & counter%2 != 0 | type == 0 & counter%2 == 0)
     {
         printf("add parity 0");
     }
@@ -63,7 +63,7 @@ int get_parity(int type, int data)
         printf("add parity 1");
     }
 
-    /*if (type == 1 && counter%2 == 0 || type == 0 & counter%2 != 0)
+    /*if (type == 1 & counter%2 == 0 | type == 0 & counter%2 != 0)
     {
         printf("add parity 1");
     }*/
