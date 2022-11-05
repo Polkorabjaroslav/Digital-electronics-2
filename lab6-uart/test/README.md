@@ -26,4 +26,46 @@
 
 3. Draw a flowchart for function `uint8_t get_parity(uint8_t data, uint8_t type)` which calculates a parity bit of input 8-bit `data` according to parameter `type`. The image can be drawn on a computer or by hand. Use clear descriptions of individual algorithm steps.
 
-   ![your figure]()
+   ![your figure](https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Obrazky/digicigi_diagram.png)
+   
+Preview of code written in Clion:
+(instead of int8_t we use int)
+ ```c
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int get_parity(int type, int data);
+int main()
+{
+    get_parity(0,10111010); // type 1 odd(liche) , 0 even(sudy)
+}
+
+int get_parity(int type, int data)
+{
+    int i;
+    int counter ;
+    char srt[8];
+    itoa(data,srt,10);
+    for(i = 0; i <= strlen(srt); i++)
+    {
+        if(srt[i]=='1')
+        {
+            counter++;
+        }
+    }
+    if (type == 1 && counter%2 != 0 || type == 0 & counter%2 == 0)
+    {
+        printf("pridej 0");
+    }
+    else
+    {
+        printf("pridej 1");
+    }
+
+    /*if (type == 1 && counter%2 == 0 || type == 0 & counter%2 != 0)
+    {
+        printf("pridej 1");
+    }*/
+}
+ ```
