@@ -56,16 +56,16 @@ int get_parity(int type, int data)
     }
     if (type == 1 && counter%2 != 0 || type == 0 & counter%2 == 0)
     {
-        printf("pridej 0");
+        printf("add parity 0");
     }
     else
     {
-        printf("pridej 1");
+        printf("add parity 1");
     }
 
     /*if (type == 1 && counter%2 == 0 || type == 0 & counter%2 != 0)
     {
-        printf("pridej 1");
+        printf("add parity 1");
     }*/
 }
  ```
