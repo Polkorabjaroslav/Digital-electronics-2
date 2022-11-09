@@ -15,8 +15,8 @@
 ### I2C communication
 
 2. Draw a timing diagram of I2C signals when calling function `rtc_read_years()`. Let this function reads one byte-value from RTC DS3231 address `06h` (see RTC datasheet) in the range `00` to `99`. Specify when the SDA line is controlled by the Master device and when by the Slave device. Draw the whole request/receive process, from Start to Stop condition. The image can be drawn on a computer (by [WaveDrom](https://wavedrom.com/) for example) or by hand. Name all parts of timing diagram.
-S=>M (slave to master)
-M=>S(Master to slave)
+S=>M (Slave to Master)
+M=>S(Master to Slave)
    ![your figure](https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Obrazky/wavedrom.png)
 
 ### Meteo station
