@@ -120,13 +120,13 @@ ISR(TIMER1_OVF_vect)
       uart_puts(string);
       uart_puts(" %\t");
     }
-    sla = 0x68;
-    ack = twi_start(sla,TWI_WRITE);
+    sla = 0x68;//1
+    ack = twi_start(sla,TWI_WRITE);//2
     if(ack == 0)
     {
-      twi_write(0x00);
+      twi_write(0x00);//3
       twi_stop();
-      twi_start(sla,TWI_READ);
+      twi_start(sla,TWI_READ);//4
       time.time_sec = twi_read_ack();
       time.time_minute = twi_read_ack();
       time.time_hour = twi_read_nack();
