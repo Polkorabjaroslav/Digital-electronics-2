@@ -25,4 +25,4 @@ Consider an application for temperature and humidity measurements. Use sensor DH
 
 3. Draw a flowchart of `TIMER1_OVF_vect` (which overflows every 1&nbsp;sec) for such Meteo station. The image can be drawn on a computer or by hand. Use clear description of individual algorithm steps.
 
-   ![your figure](https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Obrazky/Metoestat.png)
+   ![your figure](https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Obrazky/Meteostat.png)
