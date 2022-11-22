@@ -47,9 +47,9 @@ int main(void)
     lcd_init(LCD_DISP_ON_CURSOR);
 
     // Put string(s) on LCD screen
-    lcd_gotoxy(1, 0);
+    lcd_gotoxy(0, 0);
     lcd_puts("00:00");
-
+    
     /* lcd_gotoxy(11, 0);
     lcd_putc('a');
     
