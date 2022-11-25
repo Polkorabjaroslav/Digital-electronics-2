@@ -1,80 +1,171 @@
-#include "timer.h"
-#include <lcd.h>
-#include <gpio.h>
-#include <stdlib.h>
+/***********************************************************************
+ * 
+ * Use Analog-to-digital conversion to read push buttons on LCD keypad
+ * shield and display it on LCD screen.
+ * 
+ * ATmega328P (Arduino Uno), 16 MHz, PlatformIO
+ *
+ * Copyright (c) 2018 Tomas Fryza
+ * Dept. of Radio Electronics, Brno University of Technology, Czechia
+ * This work is licensed under the terms of the MIT license.
+ * 
+ **********************************************************************/
+
+
+/* Includes ----------------------------------------------------------*/
 #include <avr/io.h>         // AVR device-specific IO definitions
 #include <avr/interrupt.h>  // Interrupts standard C library for AVR-GCC
+#include <gpio.h>           // GPIO library for AVR-GCC
+#include "timer.h"          // Timer library for AVR-GCC
+#include "adc.h"
+#include <lcd.h>            // Peter Fleury's LCD library
+#include <stdlib.h>         // C library. Needed for number conversions
 
-#define CLK PB3
-#define SW PB5
-#define DT PB4
 
+#define CLK PC2
+#define SW PC3
+#define DT PC4
+#define LED1 PB2
+#define LED2 PB3
+#define LED3 PB4
+#define LED4 PB5
+#define LED5 PC1
+
+
+/* Function definitions ----------------------------------------------*/
+/**********************************************************************
+ * Function: Main function where the program execution begins
+ * Purpose:  Use Timer/Counter1 and start ADC conversion every 100 ms.
+ *           When AD conversion ends, send converted value to LCD screen.
+ * Returns:  none
+ **********************************************************************/
 uint8_t lastStateCLK;
 uint8_t currentStateCLK;
 uint8_t button;
 int8_t counter;
-int main(void) 
+int main(void)
 {
-  lcd_init(LCD_DISP_ON); 
-  lcd_gotoxy(0,0); 
-  GPIO_mode_input_nopull(&DDRB,CLK);
-  GPIO_mode_input_nopull(&DDRB,SW);
-  GPIO_mode_input_nopull(&DDRB,DT);
-    
-    //lastStateCLK = GPIO_read(&PINB,CLK);
-  TIM1_overflow_interrupt_enable();
-  TIM1_overflow_33ms();
-  TIM0_overflow_interrupt_enable();
-  TIM0_overflow_16ms();
-  sei();
-  while(1)
-  { 
-  }
-  return(0);
+    // Initialize display
+    lcd_init(LCD_DISP_ON);
+    lcd_gotoxy(0, 0); lcd_puts("X:");
+    lcd_gotoxy(6, 0); lcd_puts("Encoder:");
+    lcd_gotoxy(0, 1); lcd_puts("Y:");
+
+    GPIO_mode_input_nopull(&DDRC,CLK);
+    GPIO_mode_input_nopull(&DDRC,SW);
+    GPIO_mode_input_nopull(&DDRC,DT);
+
+    /*GPIO_mode_output(&DDRB,LED1);
+    GPIO_mode_output(&DDRB,LED2);
+    GPIO_mode_output(&DDRB,LED3);
+    GPIO_mode_output(&DDRB,LED4);
+    GPIO_mode_output(&DDRC,LED5);*/
+    Clock_prescalar_128();
+    Vref_AVcc();
+    ADIE_on();
+    ADEN_on();
+    // Configure 16-bit Timer/Counter1 to start ADC conversion
+    // Set prescaler to 33 ms and enable overflow interrupt
+    TIM1_overflow_33ms();
+    TIM1_overflow_interrupt_enable();
+    // Enables interrupts by setting the global interrupt mask
+    sei();
+    ADSC_on();
+    // Infinite loop
+    while (1)
+    {
+        /* Empty loop. All subsequent operations are performed exclusively 
+         * inside interrupt service routines ISRs */
+    }
+
+    // Will never reach this
+    return 0;
 }
 
-ISR(TIMER0_OVF_vect) //timer for encoder
-{
-  char string[4];
-  currentStateCLK = GPIO_read(&PINB, CLK);
 
+/* Interrupt service routines ----------------------------------------*/
+/**********************************************************************
+ * Function: Timer/Counter1 overflow interrupt
+ * Purpose:  Use single conversion mode and start conversion every 100 ms.
+ **********************************************************************/
+ISR(TIMER1_OVF_vect)
+{ 
+    // Start ADC conversion
+  char string[4];
+  currentStateCLK = GPIO_read(&PINC, CLK);
+  static int8_t nooverflow = 0;
+  nooverflow++;
+
+  if(nooverflow > 6)
+  {
+    nooverflow = 0;
+    ADSC_on();
+    ADCSRA &=~(1<<ADSC);
+  }
+  
   if (currentStateCLK != lastStateCLK  && currentStateCLK == 1)
   {
 		// If the DT state is different than the CLK state then
 		// the encoder is rotating CCW so decrement
-		if (GPIO_read(&PINB, DT) != currentStateCLK) 
+		if (GPIO_read(&PINC, DT) != currentStateCLK) 
     {
-			counter --;
+			counter ++;
 		} 
     else 
     {
-		  counter ++;
+		  counter --;
 		}
-
     itoa(counter,string,10);
-    lcd_gotoxy(0,0); 
+    lcd_gotoxy(14,0); 
     lcd_puts("    ");
-    lcd_gotoxy(0,0); 
+    lcd_gotoxy(14,0); 
 		lcd_puts(string);
 	}
 
 	// Remember last CLK state
 	lastStateCLK = currentStateCLK;
-
-}
-
-ISR(TIMER1_OVF_vect) //timer for button
-{
-  button = GPIO_read(&PINB,SW);
-  if(button==0)
+  //button
+  button = GPIO_read(&PINC,SW);
+  if(button == 0)
   {
+    lcd_gotoxy(6,1);
     lcd_puts("           ");
-    lcd_gotoxy(0,1);
+    lcd_gotoxy(6,1);
     lcd_puts("Zmacknuto");
   }
   else
   {
-    lcd_gotoxy(0,1);
-    lcd_puts("Nezmacknuto");
+    lcd_gotoxy(6,1);
+    lcd_puts("Nezmac..");
   }
 }
+
+ISR(ADC_vect)
+
+{
+  uint16_t valueH = ADC;
+  char string[4];  // String for converted numbers by itoa()
+  // Read converted value
+  // Note that, register pair ADCH and ADCL can be read as a 16-bit value ADC
+  switch(ADMUX)
+  {
+    case 0b01000000: //ADC0
+      itoa(valueH, string, 10);
+      lcd_gotoxy(2,0);
+      lcd_puts("    ");
+      lcd_gotoxy(2,0);
+      lcd_puts(string);
+      ADMUX = 0b01000001;
+      break;
+
+    case 0b01000001: //ADC1
+      itoa(valueH, string, 10);
+      lcd_gotoxy(2,1);
+      lcd_puts("    ");
+      lcd_gotoxy(2,1);
+      lcd_puts(string);
+      ADMUX = 0b01000000;
+      break;
+  }
+}
+
