@@ -23,7 +23,7 @@
 
 
 #define CLK PC2
-#define SW PC3
+#define SW PB2
 #define DT PC4
 #define LED1 PB2
 #define LED2 PB3
@@ -41,7 +41,6 @@
  **********************************************************************/
 uint8_t lastStateCLK;
 uint8_t currentStateCLK;
-uint8_t button;
 int8_t counter;
 int main(void)
 {
@@ -52,7 +51,7 @@ int main(void)
     lcd_gotoxy(0, 1); lcd_puts("Y:");
 
     GPIO_mode_input_nopull(&DDRC,CLK);
-    GPIO_mode_input_nopull(&DDRC,SW);
+    GPIO_mode_input_nopull(&DDRB,SW);
     GPIO_mode_input_nopull(&DDRC,DT);
 
     /*GPIO_mode_output(&DDRB,LED1);
@@ -66,12 +65,16 @@ int main(void)
     ADEN_on();
     // Configure 16-bit Timer/Counter1 to start ADC conversion
     // Set prescaler to 33 ms and enable overflow interrupt
-    TIM1_overflow_33ms();
+    TIM1_overflow_4ms();
     TIM1_overflow_interrupt_enable();
+    TIM2_overflow_16ms();
+    TIM2_overflow_interrupt_enable();
     // Enables interrupts by setting the global interrupt mask
     sei();
     ADSC_on();
-    // Infinite loop
+    // Infinite loop  
+    
+
     while (1)
     {
         /* Empty loop. All subsequent operations are performed exclusively 
@@ -95,14 +98,8 @@ ISR(TIMER1_OVF_vect)
   currentStateCLK = GPIO_read(&PINC, CLK);
   static int8_t nooverflow = 0;
   nooverflow++;
-
-  if(nooverflow > 6)
-  {
-    nooverflow = 0;
-    ADSC_on();
-    ADCSRA &=~(1<<ADSC);
-  }
   
+
   if (currentStateCLK != lastStateCLK  && currentStateCLK == 1)
   {
 		// If the DT state is different than the CLK state then
@@ -125,23 +122,44 @@ ISR(TIMER1_OVF_vect)
 	// Remember last CLK state
 	lastStateCLK = currentStateCLK;
   //button
-  button = GPIO_read(&PINC,SW);
-  if(button == 0)
+  
+  if(nooverflow > 50)
   {
-    lcd_gotoxy(6,1);
-    lcd_puts("           ");
-    lcd_gotoxy(6,1);
-    lcd_puts("Zmacknuto");
+    nooverflow = 0;
+    ADSC_on();
+    ADCSRA &=~(1<<ADSC);
   }
-  else
+  
+}
+
+ISR(TIMER2_OVF_vect)
+{
+  uint8_t button;/// button řešit rychleji, nebo podmínka 3x v 0 poté výpis 
+  static uint8_t buttover = 0;
+  buttover++;
+
+  if(buttover>2)
   {
-    lcd_gotoxy(6,1);
-    lcd_puts("Nezmac..");
+    button = GPIO_read(&PINB,SW);
+    if(button == 0)
+    {
+      lcd_gotoxy(6,2);
+      lcd_puts("        ");
+      lcd_gotoxy(6,2);
+      lcd_puts("Zmack");
+    }
+    else
+    {
+      lcd_gotoxy(6,2);
+      lcd_puts("         ");
+      lcd_gotoxy(6,2);
+      lcd_puts("NEZmack");
+    }
+    buttover =0;
   }
 }
 
 ISR(ADC_vect)
-
 {
   uint16_t valueH = ADC;
   char string[4];  // String for converted numbers by itoa()
