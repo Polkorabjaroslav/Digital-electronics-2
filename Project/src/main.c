@@ -20,6 +20,7 @@
 #include "adc.h"
 #include <lcd.h>            // Peter Fleury's LCD library
 #include <stdlib.h>         // C library. Needed for number conversions
+#include <math.h>
 
 
 #define CLK PC2
@@ -42,16 +43,63 @@
 uint8_t lastStateCLK;
 uint8_t currentStateCLK;
 int8_t counter;
+uint16_t guy[] = {
+  0b01110,
+  0b11101,
+  0b11101,
+  0b11110,
+  0b11110,
+  0b01110,
+  0b01010,
+  0b01010,
+
+  0b00011,
+  0b00110,
+  0b01000,
+  0b11001,
+  0b11000,
+  0b01000,
+  0b00110,
+  0b00011,
+
+  0b11111,
+  0b00000,
+  0b11001,
+  0b00001,
+  0b11001,
+  0b00100,
+  0b11000,
+  0b11111,
+
+  0b11111,
+  0b00000,
+  0b00100,
+  0b00101,
+  0b00100,
+  0b11000,
+  0b00000,
+  0b11111,
+
+  0b11100,
+  0b00110,
+  0b11010,
+  0b00001,
+  0b11001,
+  0b00101,
+  0b11010,
+  0b11100
+};
+
 int main(void)
 {
     // Initialize display
     lcd_init(LCD_DISP_ON);
     lcd_gotoxy(0, 0); lcd_puts("X:");
-    lcd_gotoxy(6, 0); lcd_puts("Encoder:");
+    lcd_gotoxy(10, 0); lcd_puts("Enc:");
     lcd_gotoxy(0, 1); lcd_puts("Y:");
 
     GPIO_mode_input_nopull(&DDRC,CLK);
-    GPIO_mode_input_nopull(&DDRB,SW);
+    GPIO_mode_input_pullup(&DDRB,SW);
     GPIO_mode_input_nopull(&DDRC,DT);
 
     /*GPIO_mode_output(&DDRB,LED1);
@@ -65,10 +113,10 @@ int main(void)
     ADEN_on();
     // Configure 16-bit Timer/Counter1 to start ADC conversion
     // Set prescaler to 33 ms and enable overflow interrupt
-    TIM1_overflow_4ms();
-    TIM1_overflow_interrupt_enable();
-    TIM2_overflow_16ms();
+    TIM2_overflow_2ms();
     TIM2_overflow_interrupt_enable();
+    TIM1_overflow_33ms();
+    TIM1_overflow_interrupt_enable();
     // Enables interrupts by setting the global interrupt mask
     sei();
     ADSC_on();
@@ -91,7 +139,7 @@ int main(void)
  * Function: Timer/Counter1 overflow interrupt
  * Purpose:  Use single conversion mode and start conversion every 100 ms.
  **********************************************************************/
-ISR(TIMER1_OVF_vect)
+ISR(TIMER2_OVF_vect)
 { 
     // Start ADC conversion
   char string[4];
@@ -123,7 +171,7 @@ ISR(TIMER1_OVF_vect)
 	lastStateCLK = currentStateCLK;
   //button
   
-  if(nooverflow > 50)
+  if(nooverflow > 100)
   {
     nooverflow = 0;
     ADSC_on();
@@ -132,31 +180,40 @@ ISR(TIMER1_OVF_vect)
   
 }
 
-ISR(TIMER2_OVF_vect)
+ISR(TIMER1_OVF_vect)
 {
   uint8_t button;/// button řešit rychleji, nebo podmínka 3x v 0 poté výpis 
-  static uint8_t buttover = 0;
-  buttover++;
+ 
 
-  if(buttover>2)
+  button = GPIO_read(&PINB,SW);
+  if(button == 0)
   {
-    button = GPIO_read(&PINB,SW);
-    if(button == 0)
-    {
-      lcd_gotoxy(6,2);
-      lcd_puts("        ");
-      lcd_gotoxy(6,2);
-      lcd_puts("Zmack");
-    }
-    else
-    {
-      lcd_gotoxy(6,2);
-      lcd_puts("         ");
-      lcd_gotoxy(6,2);
-      lcd_puts("NEZmack");
-    }
-    buttover =0;
+     lcd_command(1<<LCD_CGRAM);       // Set addressing to CGRAM (Character Generator RAM// ie to individual lines of character patterns
+    for (uint8_t i = 0; i < 40; i++)  // Copy new character patterns line by line to CGRAM
+    lcd_data(guy[i]);
+    lcd_command(1<<LCD_DDRAM); 
+
+    lcd_gotoxy(6,2);
+    lcd_puts("      ");
+    lcd_gotoxy(6,2);
+    lcd_putc(0x00);
+    lcd_gotoxy(7,2);
+    lcd_putc(0x01);
+    lcd_gotoxy(8,2);
+    lcd_putc(0x02);
+    lcd_gotoxy(9,2);
+    lcd_putc(0x03);
+    lcd_gotoxy(10,2);
+    lcd_putc(0x04);
   }
+  else
+  {
+    lcd_gotoxy(6,2);
+    lcd_puts("      ");
+    lcd_gotoxy(6,2);
+    lcd_puts("NE");
+  }
+  
 }
 
 ISR(ADC_vect)
@@ -165,25 +222,28 @@ ISR(ADC_vect)
   char string[4];  // String for converted numbers by itoa()
   // Read converted value
   // Note that, register pair ADCH and ADCL can be read as a 16-bit value ADC
-  switch(ADMUX)
+  if(ADMUX == 0b01000000)
   {
-    case 0b01000000: //ADC0
-      itoa(valueH, string, 10);
-      lcd_gotoxy(2,0);
-      lcd_puts("    ");
-      lcd_gotoxy(2,0);
-      lcd_puts(string);
-      ADMUX = 0b01000001;
-      break;
-
-    case 0b01000001: //ADC1
-      itoa(valueH, string, 10);
-      lcd_gotoxy(2,1);
-      lcd_puts("    ");
-      lcd_gotoxy(2,1);
-      lcd_puts(string);
-      ADMUX = 0b01000000;
-      break;
+     //ADC0
+    itoa(valueH, string, 10);
+    lcd_gotoxy(2,0);
+    lcd_puts("    ");
+    lcd_gotoxy(2,0);
+    lcd_puts(string);
+    ADMUX = 0b01000001;
+  }  
+  else if(ADMUX == 0b01000001)
+  {  //ADC1
+    itoa(valueH, string, 10);
+  
+    lcd_gotoxy(2,1);
+    lcd_puts("    ");
+    lcd_gotoxy(2,1);
+    lcd_puts(string);
+    ADMUX = 0b01000000;
   }
-}
+  
+  
+  
 
+}
