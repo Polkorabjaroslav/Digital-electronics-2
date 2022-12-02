@@ -39,16 +39,16 @@ Application of analog joy-stick (2 ADC channels, 1 push button), rotary encoder,
 * Tomáš Kristek (responsible for xxx)
 
 ## Hardware description <div id="hardware-description"/>
-In our project we used arduino uno board with external modules. In our case we were using joy-stick, rotary encoder and PmodCLP LCD module. 
+For our project, we are using an arduino uno board with external modules. For this case, we are also using a joy-stick, a rotary encoder and a PmodCLP LCD module.
 
 * Schmatic: 
  ![your figure](https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Project/obrazky/obr%C3%A1zek_sus_sch%C3%A9ma.png)
 
-As we can see, we are reading two analog values from the joy-stick, two digital values form an encoder and for each component we also got switch signal. 
+As we can see, we are reading two analog values from the joy-stick, two digital values from the encoder, and for each component we also get a switch signal.
 
 ### Rotary Encoder <div id="rotary-encoder"/>
 
-Rotary Encoders generates two digital square waves, first one is named CLK(Clock) and second is named DT(Data). If we compare those two each other, we get which way we move the knob. 
+The rotary Encoders generate two digital square waves, the  first one is named CLK (Clock), and the second one  is named DT (Data). If we compare those two with each other, we get the direction in which the knob moves.
 
 * Rotary Encoder: 
 <p align="center">
@@ -64,7 +64,7 @@ Rotary Encoders generates two digital square waves, first one is named CLK(Clock
 
 ### Joy-stick <div id="joy-stick"/>
 
-In case of joy-stick we got two analogs outputs. First one is X-axis and the second one is Y-axis. These two axis are created by potentiometers inside the joystick. 
+In case of a joy-stick, we have two analog outputs. The first one is the X-axis and the second one is the Y-axis. These two axis are created by potentiometers inside the joystick. 
 
 * Joy-stick: 
 <p align="center">
@@ -80,7 +80,7 @@ In case of joy-stick we got two analogs outputs. First one is X-axis and the sec
 
 ### LCD <div id="lcd"/>
 
-As display we used PmodCLP LCD, which is basicaly classic LCD 16x2 display with adapters to FPGA boards. 
+As a display, we used the PmodCLP LCD, which is basically a classic LCD 16x2 display with adapters to FPGA boards. 
 <p align="center">
   <img width="400" height="429" src="https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Project/obrazky/pmod_clp_vetsi.png">
 </p>
@@ -101,6 +101,11 @@ As display we used PmodCLP LCD, which is basicaly classic LCD 16x2 display with 
 #### Timer1: <div id="timer1"/>
 <p align="center">
   <img width="356" height="551" src="https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Project/obrazky/Timer1_OVF.drawio.png">
+</p>
+
+#### ADC: <div id="ADC"/>
+<p align="center">
+  <img width="312" height="442" src="https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Project/obrazky/ADC_vect.drawio.png">
 </p>
 
 ## Video <div id="video"/>
