@@ -24,13 +24,10 @@
 
 
 #define CLK PC2
-#define SW PB2
+#define joyButt PB2
 #define DT PC4
-#define LED1 PB2
-#define LED2 PB3
-#define LED3 PB4
-#define LED4 PB5
-#define LED5 PC1
+#define SW PC3
+
 
 
 /* Function definitions ----------------------------------------------*/
@@ -97,11 +94,15 @@ int main(void)
     lcd_gotoxy(0, 0); lcd_puts("X:");
     lcd_gotoxy(10, 0); lcd_puts("Enc:");
     lcd_gotoxy(0, 1); lcd_puts("Y:");
+    lcd_command(1<<LCD_CGRAM);       // Set addressing to CGRAM (Character Generator RAM// ie to individual lines of character patterns
+    for (uint8_t i = 0; i < 40; i++)  // Copy new character patterns line by line to CGRAM
+    lcd_data(guy[i]);
+    lcd_command(1<<LCD_DDRAM); 
 
     GPIO_mode_input_nopull(&DDRC,CLK);
-    GPIO_mode_input_pullup(&DDRB,SW);
+    GPIO_mode_input_pullup(&DDRC,SW);
     GPIO_mode_input_nopull(&DDRC,DT);
-
+    GPIO_mode_input_nopull(&DDRB,joyButt);
     /*GPIO_mode_output(&DDRB,LED1);
     GPIO_mode_output(&DDRB,LED2);
     GPIO_mode_output(&DDRB,LED3);
@@ -155,10 +156,18 @@ ISR(TIMER2_OVF_vect)
 		if (GPIO_read(&PINC, DT) != currentStateCLK) 
     {
 			counter ++;
+      if(counter > 99)
+      {
+        counter = 99;
+      }
 		} 
     else 
     {
 		  counter --;
+      if (counter < -9) //  LDC don't have a space for bigger mun 
+      {
+        counter = -9;
+      }
 		}
     itoa(counter,string,10);
     lcd_gotoxy(14,0); 
@@ -183,16 +192,19 @@ ISR(TIMER2_OVF_vect)
 ISR(TIMER1_OVF_vect)
 {
   uint8_t button;/// button řešit rychleji, nebo podmínka 3x v 0 poté výpis 
- 
-
-  button = GPIO_read(&PINB,SW);
+  uint8_t buttonjoy; 
+  button = GPIO_read(&PINC,SW);
   if(button == 0)
   {
-     lcd_command(1<<LCD_CGRAM);       // Set addressing to CGRAM (Character Generator RAM// ie to individual lines of character patterns
-    for (uint8_t i = 0; i < 40; i++)  // Copy new character patterns line by line to CGRAM
-    lcd_data(guy[i]);
-    lcd_command(1<<LCD_DDRAM); 
-
+    counter = 0;
+    lcd_gotoxy(14,0); 
+    lcd_puts("    ");
+    lcd_gotoxy(14,0); 
+    lcd_puts("0");
+  }
+  buttonjoy = GPIO_read(&PINB,joyButt);
+  if(buttonjoy == 0)
+  {
     lcd_gotoxy(6,2);
     lcd_puts("      ");
     lcd_gotoxy(6,2);
@@ -206,25 +218,23 @@ ISR(TIMER1_OVF_vect)
     lcd_gotoxy(10,2);
     lcd_putc(0x04);
   }
-  else
+  else 
   {
     lcd_gotoxy(6,2);
     lcd_puts("      ");
     lcd_gotoxy(6,2);
     lcd_puts("NE");
   }
-  
 }
 
 ISR(ADC_vect)
 {
   uint16_t valueH = ADC;
   char string[4];  // String for converted numbers by itoa()
-  // Read converted value
-  // Note that, register pair ADCH and ADCL can be read as a 16-bit value ADC
-  if(ADMUX == 0b01000000)
-  {
-     //ADC0
+
+  if(ADMUX == 0b01000000) //choose ADMUX adress
+  {                       //ADC0
+     
     itoa(valueH, string, 10);
     lcd_gotoxy(2,0);
     lcd_puts("    ");
@@ -233,7 +243,7 @@ ISR(ADC_vect)
     ADMUX = 0b01000001;
   }  
   else if(ADMUX == 0b01000001)
-  {  //ADC1
+  {                       //ADC1
     itoa(valueH, string, 10);
   
     lcd_gotoxy(2,1);
@@ -243,7 +253,4 @@ ISR(ADC_vect)
     ADMUX = 0b01000000;
   }
   
-  
-  
-
 }
