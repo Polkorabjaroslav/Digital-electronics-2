@@ -24,11 +24,12 @@ Application of analog joy-stick (2 ADC channels, 1 push button), rotary encoder,
    * [LCD](#lcd)
 
 **[Software description](#software-description)**
+   * [Repository structure](#repostruct)
    * [Flowcharts](#flowcharts)
       * [Main](#main)
       * [Timer2](#timer2)
       * [Timer1](#timer1)
-      * [ADC](#acd)
+      * [ADC](#ADC)
 
 **[Video](#video)**
 **[References](#references)**
@@ -86,6 +87,28 @@ As a display, we used the PmodCLP LCD, which is basically a classic LCD 16x2 dis
 </p>
 
 ## Software description <div id="software-description"/>
+For this project we are using library used in laboratories, with a one exception and that is `adc.h`. This header file was created by us in order to simplify writing proces of the code for the analog to digital conversion. 
+
+### Repository structure <div id="repostruct"/>
+
+   ```c
+   Project        
+   ├── include 
+   |    └── README
+   |    └── adc.h
+   |    └── timer.h
+   ├── lib              
+   |    └── gpio
+   |    └── lcd
+   ├── src             // Source file(s)
+   │   └── main.c
+   ├── test            // No need this
+   ├── platformio.ini  // Project Configuration File
+   └── README.md       // Report of this project
+   ```
+
+
+
 
 ### Flowcharts <div id="flowcharts"/>
 #### Main:   <div id="main"/>
