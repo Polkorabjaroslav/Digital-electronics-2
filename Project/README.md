@@ -87,28 +87,34 @@ As a display, we used the PmodCLP LCD, which is basically a classic LCD 16x2 dis
 </p>
 
 ## Software description <div id="software-description"/>
-For this project we are using library used in laboratories, with a one exception and that is `adc.h`. This header file was created by us in order to simplify writing proces of the code for the analog to digital conversion. 
+For this project we are using library used in laboratories, with a one exception and that is `adc.h`. This header file was created by us in order to simplify writing proces of the code for the analog to digital conversion. Documentation for this header file can be found here in doxygen file [ADC](https://github.com/Polkorabjaroslav/Digital-electronics-2/tree/main/Project/doxygen).
 
 ### Repository structure <div id="repostruct"/>
 
    ```c
-   Project        
+   Project  
+   ├── doxygen         // Documentation 
    ├── include 
    |    └── README
    |    └── adc.h
    |    └── timer.h
-   ├── lib              
+   ├── lib             // Library  
    |    └── gpio
    |    └── lcd
    ├── src             // Source file(s)
    │   └── main.c
-   ├── test            // No need this
+   ├── test            
    ├── platformio.ini  // Project Configuration File
    └── README.md       // Report of this project
    ```
-
-
-
+#### Links to files 
+* [Include](https://github.com/Polkorabjaroslav/Digital-electronics-2/tree/main/Project/include)
+   * [adc.h](https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Project/include/adc.h)
+   * [timer.h](https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Project/include/timer.h)
+   * [timer.h](https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Project/include/timer.h)
+* [Libraries](https://github.com/Polkorabjaroslav/Digital-electronics-2/tree/main/Project/lib)
+   * [gpio](https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Project/lib/gpio)
+   * [timer.h](https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Project/lib/lcd)
 
 ### Flowcharts <div id="flowcharts"/>
 #### Main:   <div id="main"/>
