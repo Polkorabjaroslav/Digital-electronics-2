@@ -11,7 +11,7 @@ Application of analog joy-stick (2 ADC channels, 1 push button), rotary encoder,
 - [x] X-Y axis
 - [x] Reset button
 - [x] Custom character button 
-- [ ] Markdown file
+- [x] Markdown file
 - [ ] Video
 - [ ] Finish 🎉
 
@@ -31,7 +31,7 @@ Application of analog joy-stick (2 ADC channels, 1 push button), rotary encoder,
       * [Timer1](#timer1)
       * [ADC](#ADC)
 
-**[Video](#video)**
+**[Video](#video)**</p>
 **[References](#references)**
 
 ### Team members
@@ -87,7 +87,7 @@ As a display, we used the PmodCLP LCD, which is basically a classic LCD 16x2 dis
 </p>
 
 ## Software description <div id="software-description"/>
-For this project we are using library used in laboratories, with a one exception and that is `adc.h`. This header file was created by us in order to simplify writing proces of the code for the analog to digital conversion. Documentation for this header file can be found here in doxygen file [ADC](https://github.com/Polkorabjaroslav/Digital-electronics-2/tree/main/Project/doxygen).
+For this project we are using library used in laboratories, with a one exception and that is `adc.h`. This header file was created by us in order to simplify writing proces of the code for the analog to digital conversion. Documentation for this header file can be found in doxygen file here [ADC](https://github.com/Polkorabjaroslav/Digital-electronics-2/tree/main/Project/doxygen).
 
 ### Repository structure <div id="repostruct"/>
 
