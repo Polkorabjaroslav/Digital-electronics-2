@@ -140,3 +140,6 @@ Insert a link to a short video with your practical implementation example (1-3 m
 1. [Rotary Encoder](https://docs.nanoframework.net/devicesdetails/RotaryEncoder/README.html)
 2. [Joy-stick](https://navody.dratek.cz/navody-k-produktum/arduino-joystick-ps2.html)
 3. [LCD](https://www.tme.eu/en/details/410-142p/add-on-boards/digilent/pmodclp/)
+4. [GPIO](https://github.com/Polkorabjaroslav/Digital-electronics-2/tree/main/lab2-gpio_library)
+5. [ADC](https://github.com/Polkorabjaroslav/Digital-electronics-2/tree/main/lab5-adc)
+6. [ARDUINO 328P manual](https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-7810-Automotive-Microcontrollers-ATmega328P_Datasheet.pdf)
