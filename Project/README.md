@@ -36,8 +36,8 @@ Application of analog joy-stick (2 ADC channels, 1 push button), rotary encoder,
 
 ### Team members
 
-* Jaroslav Polkorab (responsible for xxx)
-* Tomáš Kristek (responsible for xxx)
+* Jaroslav Polkorab (responsible for Github documentation,adc.h,joystick/encoder program)
+* Tomáš Kristek (responsible for Button functions, video , debugging)
 
 ## Hardware description <div id="hardware-description"/>
 For our project, we are using an arduino uno board with external modules. For this case, we are also using a joy-stick, a rotary encoder and a PmodCLP LCD module.
