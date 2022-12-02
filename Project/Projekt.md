@@ -2,6 +2,19 @@
 
 Application of analog joy-stick (2 ADC channels, 1 push button), rotary encoder, and Digilent PmodCLP LCD module.
 
+- [x] Reading Encoder 
+- [x] Reading Joystick
+- [x] Working LCD
+- [x] Reading buttons
+- [x] Own ADC library
+- [x] Counter
+- [x] X-Y axis
+- [x] Reset button
+- [x] Custom character button 
+- [ ] Markdown file
+- [ ] Video
+- [ ] Finish 🎉
+
 ### Team members
 
 * Jaroslav Polkorab (responsible for xxx)
@@ -30,7 +43,12 @@ Rotary Encoders generates two digital square waves, first one is named CLK(Clock
 In case of joy-stick we got two analogs outputs. First one is X-axis and the second one is Y-axis. These two axis are created by potentiometers inside the joystick. 
 
 * Joy-stick: 
-![joystick](https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Project/obrazky/encoderwave.png)
+
+![joystick](https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Project/obrazky/joystick.jpg)
+
+* X-Y axis
+
+![joystick](https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Project/obrazky/potentiometers.jpg)
 
 
 ## Software description
