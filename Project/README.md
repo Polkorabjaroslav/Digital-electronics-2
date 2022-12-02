@@ -87,7 +87,7 @@ As a display, we used the PmodCLP LCD, which is basically a classic LCD 16x2 dis
 </p>
 
 ## Software description <div id="software-description"/>
-For this project we are using library used in laboratories, with a one exception and that is `adc.h`. This header file was created by us in order to simplify writing proces of the code for the analog to digital conversion. Documentation for this header file can be found in doxygen file here [ADC](https://github.com/Polkorabjaroslav/Digital-electronics-2/tree/main/Project/doxygen).
+For this project we are using a library used in laboratories, with one exception and that is `adc.h`. This header file was created by us in order to simplify writing process of the code for the analog to digital conversion. Documentation for this header file can be found in doxygen file here [ADC](https://github.com/Polkorabjaroslav/Digital-electronics-2/tree/main/Project/doxygen).
 
 ### Repository structure <div id="repostruct"/>
 
