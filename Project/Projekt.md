@@ -13,11 +13,25 @@ In our project we used arduino uno board with external modules. In our case we w
 * Schmatic: 
  ![your figure](https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Project/obrazky/obr%C3%A1zek_sus_sch%C3%A9ma.png)
 
-As we can see, we are reading two analog values from the joy-stick, two digital values form an encoder and for each component we also get switch signal. 
+As we can see, we are reading two analog values from the joy-stick, two digital values form an encoder and for each component we also got switch signal. 
 
-* Rotary Encoder
-Rotary Encoder 
-![your figure]
+### Rotary Encoder
+
+Rotary Encoders generates two digital square waves, first one is named CLK(Clock) and second is named DT(Data). If we compare those two each other, we get which way we move the knob. 
+
+* Rotary Encoder: 
+![encoder](https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Project/obrazky/rotary_encoder.webp)
+
+* Wave form:
+![waveencoder](https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Project/obrazky/encoderwave.png)
+
+### Joy-stick 
+
+In case of joy-stick we got two analogs outputs. First one is X-axis and the second one is Y-axis. These two axis are created by potentiometers inside the joystick. 
+
+* Joy-stick: 
+![joystick](https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Project/obrazky/encoderwave.png)
+
 
 ## Software description
 
