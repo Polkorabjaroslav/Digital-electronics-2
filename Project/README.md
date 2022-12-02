@@ -98,6 +98,10 @@ As display we used PmodCLP LCD, which is basicaly classic LCD 16x2 display with 
   <img width="691" height="640" src="https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Project/obrazky/timer2_OVF.png">
 </p>
 
+#### Timer1: <div id="timer1"/>
+<p align="center">
+  <img width="356" height="551" src="https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Project/obrazky/Timer1_OVF.drawio.png">
+</p>
 
 ## Video <div id="video"/>
 
