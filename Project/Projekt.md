@@ -15,6 +15,16 @@ Application of analog joy-stick (2 ADC channels, 1 push button), rotary encoder,
 - [ ] Video
 - [ ] Finish 🎉
 
+
+# Table of Contents
+- [Hardware description](#hardware-description)
+- [Rotary Encoder](#rotary-encoder)
+- [Joy-stick ](#joy-stick)
+- [LCD](#lcd)
+- [Software description](#software-description)
+- [Video](#video)
+- [References](#references)
+
 ### Team members
 
 * Jaroslav Polkorab (responsible for xxx)
@@ -50,6 +60,10 @@ In case of joy-stick we got two analogs outputs. First one is X-axis and the sec
 
 ![joystick](https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Project/obrazky/potentiometers.jpg)
 
+### LCD
+
+As display we used PmodCLP LCD, which is basicaly classic LCD 16x2 display with adapters to FPGA boards. 
+![joystick](https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Project/obrazky/pmod_clp_vetsi.png)
 
 ## Software description
 
@@ -62,4 +76,5 @@ Insert a link to a short video with your practical implementation example (1-3 m
 ## References
 
 1. [Rotary Encoder](https://docs.nanoframework.net/devicesdetails/RotaryEncoder/README.html)
-2. ...
+2. [Joy-stick](https://navody.dratek.cz/navody-k-produktum/arduino-joystick-ps2.html)
+3. [LCD](https://www.tme.eu/en/details/410-142p/add-on-boards/digilent/pmodclp/)
