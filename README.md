@@ -1,9 +1,7 @@
 # Digital-electronics-2
 
-# H1
+#### Project 1 [Here](https://github.com/Polkorabjaroslav/Digital-electronics-2/tree/main/Project)
 
-# H2
+#### Project 2 [Here]()
 
-# H3
-
-HEHE HOHO
+## Laboratories:
