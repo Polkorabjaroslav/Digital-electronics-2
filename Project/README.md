@@ -111,11 +111,12 @@ For this project we are using a library used in laboratories, with one exception
 * [Include](https://github.com/Polkorabjaroslav/Digital-electronics-2/tree/main/Project/include)
    * [adc.h](https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Project/include/adc.h)
    * [timer.h](https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Project/include/timer.h)
-   * [timer.h](https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Project/include/timer.h)
 * [Libraries](https://github.com/Polkorabjaroslav/Digital-electronics-2/tree/main/Project/lib)
    * [gpio](https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Project/lib/gpio)
-   * [timer.h](https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Project/lib/lcd)
-
+   * [lcd](https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Project/lib/lcd)
+* [Source](https://github.com/Polkorabjaroslav/Digital-electronics-2/tree/main/Project/src)
+   * [main.c](https://github.com/Polkorabjaroslav/Digital-electronics-2/blob/main/Project/src/main.c)
+   
 ### Flowcharts <div id="flowcharts"/>
 #### Main:   <div id="main"/>
 <p align="center">
