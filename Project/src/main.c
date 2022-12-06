@@ -102,7 +102,7 @@ int main(void)
     GPIO_mode_input_nopull(&DDRC,CLK);
     GPIO_mode_input_pullup(&DDRC,SW);
     GPIO_mode_input_nopull(&DDRC,DT);
-    GPIO_mode_input_nopull(&DDRB,joyButt);
+    GPIO_mode_input_pullup(&DDRB,joyButt);
     /*GPIO_mode_output(&DDRB,LED1);
     GPIO_mode_output(&DDRB,LED2);
     GPIO_mode_output(&DDRB,LED3);
