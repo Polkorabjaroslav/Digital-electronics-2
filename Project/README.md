@@ -12,8 +12,8 @@ Application of analog joy-stick (2 ADC channels, 1 push button), rotary encoder,
 - [x] Reset button
 - [x] Custom character button 
 - [x] Markdown file
-- [ ] Video
-- [ ] Finish 🎉
+- [x] Video
+- [x] Finish 🎉
 
 
 # Table of Contents
@@ -140,7 +140,7 @@ For this project we are using a library used in laboratories, with one exception
 
 ## Video <div id="video"/>
 
-Insert a link to a short video with your practical implementation example (1-3 minutes, e.g. on YouTube).
+[Video](https://www.youtube.com/watch?v=mfIAXYet1iA)
 
 ## References <div id="references"/>
 
