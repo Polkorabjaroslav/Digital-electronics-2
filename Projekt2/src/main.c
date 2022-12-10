@@ -1,62 +1,101 @@
-#include <Arduino.h>
+#ifndef F_CPU
+# define F_CPU 16000000  /
+#endif
+
 #include <avr/io.h>         // AVR device-specific IO definitions
 #include <avr/interrupt.h>  // Interrupts standard C library for AVR-GCC
 #include <gpio.h>           // GPIO library for AVR-GCC
 #include "timer.h"          // Timer library for AVR-GCC
 #include <stdlib.h>
+#include <uart.h>
 
-
-
+//define pins PB1 as sv_1 (servos)
 #define sv_1 PB1
 #define sv_2 PB2
+//define pins for encoder
+#define DT PC4
+#define SW PC3
+#define CLK PC2
 
-uint8_t overflow = 0;
+uint32_t middle = 1500;
+uint8_t counter;
+uint16_t right = 2400;
+uint16_t left = 600;
+
+uint8_t lastStateCLK;
+uint8_t currentStateCLK;
+uint8_t overflow;
+
 
 int main(void) 
 {
+  uart_init(UART_BAUD_SELECT(9600, F_CPU));
+  //setting output pins
   GPIO_mode_output(&DDRB, sv_1);
   GPIO_mode_output(&DDRB, sv_2);
-
-  TCCR1A &= ~(1 << TCCR1A);//reset the register
-  TCCR1B &= ~(1 << TCCR1B);//reset the register
-  TCNT1 &= ~(1 << TCNT1);
-
-  TCCR1A &=~ ((1<<COM1A0)|(1<<COM1B0));  
-  TCCR1A |= ((1<<COM1A1)|(1<<COM1B1));
-  TCCR1A &=~ (1<<WGM10); TCCR1A|= (1<<WGM11);
-
-  //TCCR1A=0b10100010;//COM1A0,COM1B0 are 0, COM1A1, COM1B1 are 0 0
-  //also WGM10 are 0 and WGM11=1
-  
-  TCCR1B &=~ ((1<<ICNC1)|(1<<ICES1));  
-  TCCR1B |=(1<<CS11);TCCR1B &=~((1<<CS12)|(1<<CS10));
-  TCCR1B &=~ (1<<WGM12); TCCR1A|= (1<<WGM13);
+  //encoder inputs
+  GPIO_mode_input_nopull(&DDRC,CLK);
+  GPIO_mode_input_pullup(&DDRC,SW);
+  GPIO_mode_input_nopull(&DDRC,DT);
+  //setting PWM registers / PWM mode
+  TCCR1A &=~ ((1<<COM1A0) | (1<<COM1B0));  
+  TCCR1A |=  ((1<<COM1A1) | (1<<COM1B1));
+  TCCR1A |=  (1<<WGM11);
+  TCCR1B |=  (1<<WGM13);
+  //prescalar
+  TCCR1B |=  (1 << CS11);
+  //PWM period
   ICR1=20000;
-
-  TIM1_overflow_262ms();
-  TIM1_overflow_interrupt_enable();
+  //start position 
+  OCR1A = middle;
+  OCR1B = middle;
+  //Timer overflow time + timer interrupts
+  TIM0_overflow_1ms();
+  TIM0_overflow_interrupt_enable();
+  // global iterrupts
   sei();
-  //TCCR1B=0b00010010;//WGM13 is 1 and WGM12 is 0 with prescaler equal 8
-    while(1)
-  {
 
-  }
+  while(1)
+  {}
   return 0;
 }
 
-ISR(TIMER1_OVF_vect)
-{
-  
+ ISR(TIMER0_OVF_vect)
+{ 
   overflow++;
-  if (overflow < 6)
+  char string[4];
+  currentStateCLK = GPIO_read(&PINC, CLK);
+
+
+  if (currentStateCLK != lastStateCLK  && currentStateCLK == 1)
   {
-    OCR1A=1000;
-  }
-  else if (overflow > 6)
-  {
-    OCR1A = 2500;
-    overflow = 0;
-  }  
-                //here you set the values for duty cycle and also angle
-                //OCR1B=2000;//you can connect another servo here and control it
+		if (GPIO_read(&PINC, DT) != currentStateCLK) 
+    {
+
+			middle += 25;
+
+      if(middle > 2400)
+      {
+        middle = 2400;
+      }
+
+		} 
+    else 
+    {
+		  middle -= 25;
+      if (middle < 600) 
+      {
+        middle = 600;
+      }
+
+		}
+    OCR1A = middle;
+    OCR1B = middle; 
+
+    itoa(middle,string,10);
+    uart_puts(string);
+    uart_puts("\r\n");
+	}
+  
+  lastStateCLK = currentStateCLK;
 }
