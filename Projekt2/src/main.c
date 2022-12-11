@@ -19,13 +19,17 @@
 
 uint32_t middle = 1500;
 uint8_t counter;
-uint16_t right = 2400;
-uint16_t left = 600;
+uint16_t right = 2000;
+uint16_t left = 1000;
+int8_t time_dir = 25;
+uint16_t serv_2 = 1500;
 
 uint8_t lastStateCLK;
 uint8_t currentStateCLK;
-uint8_t overflow;
+uint16_t overflow;
 
+
+ 
 
 int main(void) 
 {
@@ -74,28 +78,42 @@ int main(void)
 
 			middle += 25;
 
-      if(middle > 2400)
+      if(middle > 2000)
       {
-        middle = 2400;
+        middle = 2000;
       }
 
 		} 
     else 
     {
 		  middle -= 25;
-      if (middle < 600) 
+      if (middle < 1000) 
       {
-        middle = 600;
+        middle = 1000;
       }
 
 		}
     OCR1A = middle;
-    OCR1B = middle; 
-
-    itoa(middle,string,10);
-    uart_puts(string);
-    uart_puts("\r\n");
 	}
   
   lastStateCLK = currentStateCLK;
+  if(overflow > 500)
+  {
+    serv_2 += time_dir;
+    if(serv_2 == 2000)
+    {
+      time_dir = -25;
+    }
+    else if (serv_2 == 1000)
+    {
+      time_dir = 25;
+    }
+    OCR1B = serv_2;
+    itoa(serv_2,string,10);
+    uart_puts(string);
+    uart_puts("\r\n");
+
+    overflow = 0;
+  }
+
 }
