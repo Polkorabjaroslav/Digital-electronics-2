@@ -8,7 +8,7 @@
 #include "timer.h"          // Timer library for AVR-GCC
 #include <stdlib.h>
 #include <uart.h>
-
+#include <lcd.h>
 //define pins PB1 as sv_1 (servos)
 #define sv_1 PB1
 #define sv_2 PB2
@@ -28,12 +28,48 @@ uint8_t lastStateCLK;
 uint8_t currentStateCLK;
 uint16_t overflow;
 
-
+uint16_t arrows[] = {
+  0b00000,      //arrow right
+  0b00100,
+  0b00110,
+  0b11111,
+  0b11111,
+  0b00110,
+  0b00100,
+  0b00000,
+  0b00100,      //arrow up
+  0b01110,
+  0b11111,
+  0b00100,
+  0b00100,
+  0b00100,
+  0b00100,
+  0b00000,
+  0b00100,      //arrow down
+  0b00100,      
+  0b00100,
+  0b00100,
+  0b11111,
+  0b01110,
+  0b00100,
+  0b00000
+};
  
 
 int main(void) 
 {
-  uart_init(UART_BAUD_SELECT(9600, F_CPU));
+  //LCD start
+  lcd_init(LCD_DISP_ON);
+
+  lcd_gotoxy(0, 0); lcd_puts("S1 position:"); 
+  lcd_gotoxy(0, 1); lcd_puts("S2 position:"); 
+  
+  lcd_command(1<<LCD_CGRAM);       // Set addressing to CGRAM (Character Generator RAM// ie to individual lines of character patterns
+  for (uint8_t i = 0; i < 24; i++)  // Copy new character patterns line by line to CGRAM
+  lcd_data(arrows[i]);
+  lcd_command(1<<LCD_DDRAM);
+
+  //uart_init(UART_BAUD_SELECT(9600, F_CPU));
   //setting output pins
   GPIO_mode_output(&DDRB, sv_1);
   GPIO_mode_output(&DDRB, sv_2);
@@ -52,7 +88,12 @@ int main(void)
   ICR1=20000;
   //start position 
   OCR1A = middle;
+  lcd_gotoxy(12,0);
+  lcd_putc(0x00);
   OCR1B = middle;
+  lcd_gotoxy(12,1);
+  lcd_putc(0x00);
+   
   //Timer overflow time + timer interrupts
   TIM0_overflow_1ms();
   TIM0_overflow_interrupt_enable();
@@ -67,7 +108,6 @@ int main(void)
  ISR(TIMER0_OVF_vect)
 { 
   overflow++;
-  char string[4];
   currentStateCLK = GPIO_read(&PINC, CLK);
 
 
@@ -94,6 +134,27 @@ int main(void)
 
 		}
     OCR1A = middle;
+    if(middle == 1500)
+    {
+      lcd_gotoxy(12,0);
+      lcd_puts("    ");
+      lcd_gotoxy(12,0);
+      lcd_putc(0x00);
+    }
+    else if (middle == 1000)
+    {
+      lcd_gotoxy(12,0);
+      lcd_puts("    ");
+      lcd_gotoxy(12,0);
+      lcd_putc(0x01);
+    }
+    else if (middle == 2000)
+    {
+      lcd_gotoxy(12,0);
+      lcd_puts("    ");
+      lcd_gotoxy(12,0);
+      lcd_putc(0x02);
+    }
 	}
   
   lastStateCLK = currentStateCLK;
@@ -103,16 +164,27 @@ int main(void)
     if(serv_2 == 2000)
     {
       time_dir = -25;
+      lcd_gotoxy(12,1);
+      lcd_puts("    ");
+      lcd_gotoxy(12,1);
+      lcd_putc(0x02);
     }
     else if (serv_2 == 1000)
     {
       time_dir = 25;
+      lcd_gotoxy(12,1);
+      lcd_puts("    ");
+      lcd_gotoxy(12,1);
+      lcd_putc(0x01);
+    }
+    else if(serv_2 == 1500)
+    {
+      lcd_gotoxy(12,1);
+      lcd_puts("    ");
+      lcd_gotoxy(12,1);
+      lcd_putc(0x00);
     }
     OCR1B = serv_2;
-    itoa(serv_2,string,10);
-    uart_puts(string);
-    uart_puts("\r\n");
-
     overflow = 0;
   }
 
