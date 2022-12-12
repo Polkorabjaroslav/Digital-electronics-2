@@ -1,1 +1,49 @@
-<mxfile host="app.diagrams.net" modified="2022-12-12T18:28:25.334Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36" version="20.6.1" etag="hgTlyzvoo1kuVrP7HrjP" type="github"><diagram id="O6gLWfoAOk_ky3AJ6p59">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2022-12-12T18:39:19.663Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36" version="20.6.1" etag="Zs3fKRpc9F265UsNYIny" type="github">
+  <diagram id="gG8LH1Kt-QfdHoUbdCUn" name="Page-1">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="o-WJMrJik4QpsCfnPxG--8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="o-WJMrJik4QpsCfnPxG--1" target="o-WJMrJik4QpsCfnPxG--2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="o-WJMrJik4QpsCfnPxG--1" value="Start" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="60" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="o-WJMrJik4QpsCfnPxG--9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="o-WJMrJik4QpsCfnPxG--2" target="o-WJMrJik4QpsCfnPxG--3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="o-WJMrJik4QpsCfnPxG--2" value="LCD ON" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="140" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="o-WJMrJik4QpsCfnPxG--10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="o-WJMrJik4QpsCfnPxG--3" target="o-WJMrJik4QpsCfnPxG--4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="o-WJMrJik4QpsCfnPxG--3" value="Custom character read" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="190" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="o-WJMrJik4QpsCfnPxG--11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="o-WJMrJik4QpsCfnPxG--4" target="o-WJMrJik4QpsCfnPxG--5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="o-WJMrJik4QpsCfnPxG--4" value="Declaration GPIO inputs&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="240" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="o-WJMrJik4QpsCfnPxG--12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="o-WJMrJik4QpsCfnPxG--5" target="o-WJMrJik4QpsCfnPxG--6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="o-WJMrJik4QpsCfnPxG--5" value="Declaration of registers for PWM&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="290" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="o-WJMrJik4QpsCfnPxG--13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="o-WJMrJik4QpsCfnPxG--6" target="o-WJMrJik4QpsCfnPxG--7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="o-WJMrJik4QpsCfnPxG--6" value="Timer overflow&amp;nbsp;&lt;br&gt;Timer interrupt" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="340" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="o-WJMrJik4QpsCfnPxG--7" value="While(1)" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="390" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
