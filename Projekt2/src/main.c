@@ -115,14 +115,11 @@ int main(void)
   {
 		if (GPIO_read(&PINC, DT) != currentStateCLK) 
     {
-
 			middle += 25;
-
       if(middle > 2400)
       {
         middle = 2400;
       }
-
 		} 
     else 
     {
@@ -131,7 +128,6 @@ int main(void)
       {
         middle = 600;
       }
-
 		}
     OCR1A = middle;
     if(middle == 1500)
