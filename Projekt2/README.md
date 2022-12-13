@@ -76,7 +76,7 @@ As a display, we used the PmodCLP LCD, which is basically a classic LCD 16x2 dis
 </p>
 
 ## Software description <div id="software-description"/>
-For this project we used only library included in school computer exercises.
+For this project we used only library included in school computer exercises. Uart library is used only for debbuging.
 
 ### Repository structure <div id="repostruct"/>
 
@@ -121,7 +121,7 @@ For this project we used only library included in school computer exercises.
 
 ## Video <div id="video"/>
 
-[Video](https://www.youtube.com/watch?v=mfIAXYet1iA)
+[Video]()
 
 ## References <div id="references"/>
 
