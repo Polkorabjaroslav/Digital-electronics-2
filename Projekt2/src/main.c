@@ -19,9 +19,9 @@
 
 uint32_t middle = 1500;
 uint8_t counter;
-uint16_t right = 2000;
-uint16_t left = 1000;
-int8_t time_dir = 25;
+uint16_t right = 2400;
+uint16_t left = 600;
+int8_t time_dir = 100;
 uint16_t serv_2 = 1500;
 
 uint8_t lastStateCLK;
@@ -105,7 +105,7 @@ int main(void)
   return 0;
 }
 
- ISR(TIMER0_OVF_vect)
+ ISR(TIMER0_OVF_vect) // Timer0 overflow function (encoder control + autonome servo)
 { 
   overflow++;
   currentStateCLK = GPIO_read(&PINC, CLK);
@@ -118,18 +118,18 @@ int main(void)
 
 			middle += 25;
 
-      if(middle > 2000)
+      if(middle > 2400)
       {
-        middle = 2000;
+        middle = 2400;
       }
 
 		} 
     else 
     {
 		  middle -= 25;
-      if (middle < 1000) 
+      if (middle < 600) 
       {
-        middle = 1000;
+        middle = 600;
       }
 
 		}
@@ -141,19 +141,19 @@ int main(void)
       lcd_gotoxy(12,0);
       lcd_putc(0x00);
     }
-    else if (middle == 1000)
-    {
-      lcd_gotoxy(12,0);
-      lcd_puts("    ");
-      lcd_gotoxy(12,0);
-      lcd_putc(0x01);
-    }
-    else if (middle == 2000)
+    else if (middle == 600)
     {
       lcd_gotoxy(12,0);
       lcd_puts("    ");
       lcd_gotoxy(12,0);
       lcd_putc(0x02);
+    }
+    else if (middle == 2400)
+    {
+      lcd_gotoxy(12,0);
+      lcd_puts("    ");
+      lcd_gotoxy(12,0);
+      lcd_putc(0x01);
     }
 	}
   
@@ -161,21 +161,21 @@ int main(void)
   if(overflow > 500)
   {
     serv_2 += time_dir;
-    if(serv_2 == 2000)
+    if(serv_2 == 2400)
     {
-      time_dir = -25;
-      lcd_gotoxy(12,1);
-      lcd_puts("    ");
-      lcd_gotoxy(12,1);
-      lcd_putc(0x02);
-    }
-    else if (serv_2 == 1000)
-    {
-      time_dir = 25;
+      time_dir = -100;
       lcd_gotoxy(12,1);
       lcd_puts("    ");
       lcd_gotoxy(12,1);
       lcd_putc(0x01);
+    }
+    else if (serv_2 == 600)
+    {
+      time_dir = 100;
+      lcd_gotoxy(12,1);
+      lcd_puts("    ");
+      lcd_gotoxy(12,1);
+      lcd_putc(0x02);
     }
     else if(serv_2 == 1500)
     {
