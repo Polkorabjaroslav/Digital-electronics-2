@@ -69,7 +69,7 @@ int main(void)
   lcd_data(arrows[i]);
   lcd_command(1<<LCD_DDRAM);
 
-  //uart_init(UART_BAUD_SELECT(9600, F_CPU));
+  uart_init(UART_BAUD_SELECT(9600, F_CPU));
   //setting output pins
   GPIO_mode_output(&DDRB, sv_1);
   GPIO_mode_output(&DDRB, sv_2);
